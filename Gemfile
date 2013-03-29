@@ -11,11 +11,13 @@ gem 'pg'
 
 group :test, :development do
   gem 'rspec-rails'
+  gem 'faraday'
 end
 
 group :test do
   gem 'shoulda-matchers'
   gem 'factory_girl_rails'
+  gem 'webmock'
 end
 
 # To use ActiveModel has_secure_password

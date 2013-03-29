@@ -1,5 +1,5 @@
 MagicEightBall::Application.routes.draw do
-  resources :outbound_emails, :inbound_emails
+  resources :inbound_emails, :only => [:create]
 
     # The priority is based upon order of creation:
   # first created -> highest priority.

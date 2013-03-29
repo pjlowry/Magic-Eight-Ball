@@ -6,23 +6,27 @@ class OutboundEmail < ActiveRecord::Base
 
   belongs_to :inbound_email
 
-  def initialize(attributes) #may need work
+  after_create :send_it
 
-    @from = 'answer@magic8.com'
-    @to = attributes[:sender]
-    @subject = attributes[:subject]
-    @text = attributes[:'stripped-text']
+  # def initialize(attributes)
 
-    send_it
-  end
+  #   @from = 'answer@magic8.com'
+  #   @to = attributes[:sender]
+  #   @subject = attributes[:subject]
+  #   @text = attributes[:'stripped-text']
+
+  #   send_it
+  # end
 
   private
 
-  def send_it #needs work
+  def send_it
+    p '*' * 88
     faraday_response = Faraday.post do |request|
-      request.url "https://api.mailgun.net/v2/play.epicodus.com.mailgun.org/messages"
-      request.headers['Authorization'] = "Basic " + Base64.strict_encode64("api:#{API_KEY}")
-      request.body = URI.encode_www_form(:from => @from, :to => @to, :subject => @subject, :text => @text)
+      request.url "https://api:key-51g8hs2i7emr7zn4wg0dfk8leg3o70b6@api.mailgun.net/v2/magic8.mailgun.org/outbound_emails"
+      request.headers['Authorization'] = "Basic " + Base64.strict_encode64('api:key-51g8hs2i7emr7zn4wg0dfk8leg3o70b6')
+      request.body = URI.encode_www_form(:from => from, :to => to, :subject => subject, :text => text)
+    end
   end
 
 end

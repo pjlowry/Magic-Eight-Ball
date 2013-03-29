@@ -1,15 +1,27 @@
 class InboundEmailsController < ApplicationController
 
+  attr_reader :sender, :text, :subject
+
    def create
-    inbound_email = InboundEmail.new(params[:inbound_email])
+    @sender = params['sender']
+    @text = params[:'stripped-text']
+    @subject = params[:subject]
+    inbound_email_hash = {:sender => @sender, :subject => @subject, :text => @text}
+    inbound_email = InboundEmail.new(inbound_email_hash)
+    
+    
+    inbound_email.save
+    p inbound_email
 
-    if inbound_email.save
-      render :json => inbound_email, :status => :created
-    else
-      render :json => inbound_email.errors, :status => :unprocessable_entity
-    end
 
-    OutboundEmail.new(inbound_email).send_it #revisit and make sure this is the right way
+
+
+
+
+
+
+in_note = InNote.new(params)
+    in_note.respond
   end
 
 end

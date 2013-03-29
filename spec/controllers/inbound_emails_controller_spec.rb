@@ -6,7 +6,7 @@ describe InboundEmailsController do
   end
 
   context 'with valid parameters' do
-    let(:valid_attributes) {{:sender => 'michael@epicodus.com', :subject => 'hi', :'stripped-text' => 'testing 1,2,3'}}
+    let(:valid_attributes) {{:sender => 'michael@epicodus.com', :subject => 'hi', :text => 'testing 1,2,3'}}
     let(:valid_parameters) {{:inbound_email => valid_attributes}}
 
     it 'creates a new email' do
@@ -15,23 +15,7 @@ describe InboundEmailsController do
 
     before {post :create, valid_parameters}
 
-      it {should respond_with 201}
-      it {should respond_with_content_type :json}
-      it 'responds with a json representation of the newly-created email' do
-        response.body.should eq InboundEmail.find(JSON.parse(response.body)['inbound_email']['id']).to_json
-    end
+      it {should respond_with 200}
 
-      context 'with invalid parameters' do
-      let(:invalid_attributes) {{:sender => ''}}
-      let(:invalid_parameters) {{:inbound_email => invalid_attributes}}
-
-      before {post :create, invalid_parameters}
-
-      it {should respond_with 422}
-      it {should respond_with_content_type :json}
-      it 'responds with a json representation of the errors' do
-        response.body.should eq InboundEmail.create(invalid_attributes).errors.to_json
-      end
-    end
   end
 end
