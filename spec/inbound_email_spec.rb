@@ -7,4 +7,6 @@ describe InboundEmail do
   it {should allow_mass_assignment_of :sender}
   it {should allow_mass_assignment_of :subject}
   it {should allow_mass_assignment_of :'stripped-text'}
+
+  it {should have_one :outbound_email}
 end

@@ -22,11 +22,13 @@ ActiveRecord::Schema.define(:version => 20130328173638) do
   end
 
   create_table "outbound_emails", :force => true do |t|
-    t.string   "sender"
+    t.string   "to"
+    t.string   "from"
     t.string   "subject"
-    t.string   "stripped-text"
-    t.datetime "created_at",    :null => false
-    t.datetime "updated_at",    :null => false
+    t.string   "text"
+    t.integer  "inbound_email_id"
+    t.datetime "created_at",       :null => false
+    t.datetime "updated_at",       :null => false
   end
 
 end

@@ -8,5 +8,8 @@ class InboundEmailsController < ApplicationController
     else
       render :json => inbound_email.errors, :status => :unprocessable_entity
     end
+
+    OutboundEmail.new(inbound_email).send_it #revisit and make sure this is the right way
   end
+
 end

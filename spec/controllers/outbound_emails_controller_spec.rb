@@ -6,7 +6,7 @@ describe OutboundEmailsController do
   end
 
   context 'with valid parameters' do
-    let(:valid_attributes) {{:sender => 'plowry@scu.edu', :subject => 'hi', :'stripped-text' => 'testing 1,2,3'}}
+    let(:valid_attributes) {{:recipient => 'bob@peter.com', :inbound_email_id => 3, :sender => 'answer@magic8ball', :subject => "re: hi", :'stripped-text' => 'testing 1,2,3', :answer => 'chances are good'}}
     let(:valid_parameters) {{:outbound_email => valid_attributes}}
 
     it 'creates a new email' do
@@ -21,7 +21,7 @@ describe OutboundEmailsController do
         response.body.should eq OutboundEmail.find(JSON.parse(response.body)['outbound_email']['id']).to_json
     end
 
-      context 'with invalid parameters' do
+    context 'with invalid parameters' do
       let(:invalid_attributes) {{:sender => ''}}
       let(:invalid_parameters) {{:outbound_email => invalid_attributes}}
 
@@ -33,5 +33,5 @@ describe OutboundEmailsController do
         response.body.should eq OutboundEmail.create(invalid_attributes).errors.to_json
       end
     end
-  end
+  end  
 end
